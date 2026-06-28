@@ -1,0 +1,266 @@
+{
+  "name": "Google Sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "19vAzwC17LWjejKd7dPow6ALIG1wsY4XvAfruAuuuRJ4",
+          "mode": "list",
+          "cachedResultName": "Taller de Desarrollo - GCloud",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19vAzwC17LWjejKd7dPow6ALIG1wsY4XvAfruAuuuRJ4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19vAzwC17LWjejKd7dPow6ALIG1wsY4XvAfruAuuuRJ4/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        480,
+        64
+      ],
+      "id": "c42120c3-fcf1-486c-aed0-923a5de883a4",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "BwnrEIwEyIolYbJ7",
+          "name": "Google Sheets - Conex"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "398ea6dc-3ff0-4665-9b01-cf9ff973c925",
+              "leftValue": "={{ $json.body.method }}",
+              "rightValue": "agregar",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "0ed2e636-730e-4a34-9058-975763577917",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "19vAzwC17LWjejKd7dPow6ALIG1wsY4XvAfruAuuuRJ4",
+          "mode": "list",
+          "cachedResultName": "Taller de Desarrollo - GCloud",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19vAzwC17LWjejKd7dPow6ALIG1wsY4XvAfruAuuuRJ4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19vAzwC17LWjejKd7dPow6ALIG1wsY4XvAfruAuuuRJ4/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Descripción": "={{ $json.body.Descripcion }}",
+            "ID": "={{ $json.body.ID }}",
+            "Título": "={{ $json.body.Titulo }}",
+            "Precio Mensual (USD)": "={{ $json.body.precio }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Título",
+              "displayName": "Título",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Descripción",
+              "displayName": "Descripción",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Precio Mensual (USD)",
+              "displayName": "Precio Mensual (USD)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        480,
+        -96
+      ],
+      "id": "9fbcd405-9857-4a4c-a2c7-9605352d6a98",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "BwnrEIwEyIolYbJ7",
+          "name": "Google Sheets - Conex"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "f1116a2f-6f1b-4304-887c-b940b07997d1",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "79c88d89-30da-4df0-bf1f-3df5cefd8915",
+      "name": "Webhook",
+      "webhookId": "f1116a2f-6f1b-4304-887c-b940b07997d1"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        688,
+        64
+      ],
+      "id": "25b5541e-55be-4d75-b9cb-d998ff2263b8",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"Estado\": \"Datos guardados correctamente.\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        688,
+        -96
+      ],
+      "id": "80e02fea-e192-4697-beb8-afaef67a873e",
+      "name": "Respond to Webhook1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "7d92aecf-a6ae-4d06-bd7c-cca1fa154afe",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "83f40de6e9c070e706d7790f1b451dea7ce021409686d6cbca1b9e31c45c35e5"
+  },
+  "id": "yCINLb7mLeGzI9Qo",
+  "tags": []
+}
